@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { AgGridVue } from "ag-grid-vue3"
 import { Tree } from "@/modules/tree/composables/use-tree"
-import type { ITree, TypeTreeId } from "@/types"
+import type { GetDataPathWithNumber, ITree, TypeTreeId } from "@/types"
 import { useTable } from "@/modules/tree/composables/use-table";
 import {
   AllCommunityModule,
   type ColDef,
-  type GetDataPath,
   type GridReadyEvent,
   ModuleRegistry,
 } from "ag-grid-community"
@@ -43,15 +42,15 @@ const autoGroupColumnDef = computed<ColDef>(() => ({
 
 const rowData = ref<ITree[] | null>(null)
 
-const getDataPath: GetDataPath = (data: ITree): string[] => {
-  const path: string[] = [];
+const getDataPath = ((data: ITree): TypeTreeId[] => {
+  const path: TypeTreeId[] = []
   const parents = treeStore.getAllParents(data.id)
 
   for (let i = 0; i < parents.length; i++) {
-    path.unshift(String(parents[i]!.id))
+    path.unshift(parents[i]!.id)
   }
   return path
-}
+}) as GetDataPathWithNumber
 
 const gridApi = ref()
 

@@ -12,7 +12,7 @@ export class Tree {
     this.childrenMap = new Map()
 
     this.store.forEach((item: ITree) => {
-      const itemId = String(item.id)
+      const itemId = item.id
       this.treeMap.set(itemId, item)
 
       this.setChildrenMap(item)

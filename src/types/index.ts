@@ -1,3 +1,5 @@
+import type { GetDataPath } from "ag-grid-community";
+
 export type TypeTreeId = string | number
 
 export interface ITree {
@@ -7,3 +9,6 @@ export interface ITree {
   path?: TypeTreeId[]
 }
 
+export interface GetDataPathWithNumber<TData = any> extends GetDataPath<TData> {
+  (data: TData): Array<string | number>;
+}
